@@ -140,22 +140,13 @@
         mode: '0600'
       tags: [deploy]
     
-    - name: Pull Docker images
-      docker_compose:
-        project_src: "{{ project_dir }}"
-        pull: yes
-      environment:
-        DOCKER_HOST: unix:///var/run/docker.sock
-      tags: [deploy]
-      ignore_errors: yes
-    
     - name: Build and start CUPS container
-      docker_compose:
-        project_src: "{{ project_dir }}"
-        build: yes
-        state: present
-      environment:
-        DOCKER_HOST: unix:///var/run/docker.sock
+      shell: |
+        cd {{ project_dir }}
+        docker compose build
+        docker compose up -d
+      args:
+        executable: /bin/bash
       tags: [deploy]
     
     - name: Display access information

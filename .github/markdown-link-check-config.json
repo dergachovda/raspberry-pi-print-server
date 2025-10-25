@@ -1,0 +1,17 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^http://localhost"
+    },
+    {
+      "pattern": "^http://raspberry-pi-ip"
+    },
+    {
+      "pattern": "^http://192.168"
+    },
+    {
+      "pattern": "^https://www.raspberrypi.org"
+    }
+  ],
+  "aliveStatusCodes": [200, 206]
+}

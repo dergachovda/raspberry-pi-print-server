@@ -157,7 +157,7 @@ main() {
     else
         while true; do
             show_menu
-            read -p "Select an option: " choice
+            read -r -p "Select an option: " choice
             case $choice in
                 1) deploy ;;
                 2) stop ;;
