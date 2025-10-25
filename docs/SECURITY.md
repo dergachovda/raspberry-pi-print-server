@@ -492,8 +492,9 @@ Before going live:
 If you find a security vulnerability:
 
 1. **Do NOT** open a public issue
-2. Email: security@yourdomain.com (if configured)
-3. Include:
+2. Email: security@example.com (replace with your configured email)
+3. Or open a GitHub Security Advisory in the repository
+4. Include:
    - Description of vulnerability
    - Steps to reproduce
    - Potential impact
