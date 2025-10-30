@@ -1,0 +1,29 @@
+services:
+  cups:
+    build: .
+    container_name: cups-print-server
+    restart: unless-stopped
+    network_mode: host
+    privileged: true
+    environment:
+      - CUPSADMIN=${CUPS_ADMIN_USER:-admin}
+      - CUPSPASSWORD=${CUPS_ADMIN_PASSWORD:-admin}
+    volumes:
+      - ./cups/printers.conf:/etc/cups/printers.conf:ro
+      - ./cups/cupsd.conf:/etc/cups/cupsd.conf:ro
+      - ./cups/cups-files.conf:/etc/cups/cups-files.conf:ro
+      - cups-data:/var/spool/cups
+      - cups-cache:/var/cache/cups
+      - cups-logs:/var/log/cups
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    labels:
+      - "com.raspberry-pi.print-server=true"
+
+volumes:
+  cups-data:
+  cups-cache:
+  cups-logs:
