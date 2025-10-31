@@ -12,9 +12,12 @@ services:
       - ./cups/printers.conf:/etc/cups/printers.conf:ro
       - ./cups/cupsd.conf:/etc/cups/cupsd.conf:ro
       - ./cups/cups-files.conf:/etc/cups/cups-files.conf:ro
-      - cups-data:/var/spool/cups
-      - cups-cache:/var/cache/cups
-      - cups-logs:/var/log/cups
+      # Persist CUPS runtime, cache and logs on the host so they are visible
+      # and survive container recreation. These map to ./data/* relative to
+      # the repository root on the host (create these dirs before starting).
+      - ./data/cups:/var/spool/cups
+      - ./data/cache:/var/cache/cups
+      - ./data/logs:/var/log/cups
     devices:
       - /dev/bus/usb:/dev/bus/usb
     cap_add:
@@ -23,7 +26,5 @@ services:
     labels:
       - "com.raspberry-pi.print-server=true"
 
-volumes:
-  cups-data:
-  cups-cache:
-  cups-logs:
+# Using host directories for CUPS data/cache/logs (see service volumes).
+# If you prefer Docker named volumes, you can re-enable them here.
